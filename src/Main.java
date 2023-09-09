@@ -5,20 +5,19 @@ import static java.lang.Double.parseDouble;
 public class Main {
 
     private static double ergebnis = 0;
-    public static String antwort = "`";
+    private static String antwort = "";
     public static void main(String[] args) {
 
 
         Scanner eingabe = new Scanner(System.in);
         boolean bool = true;
+        int count = 0;
         ArrayList<Double> operanden = new ArrayList<>();
 
 
         while (bool) {
 
-            System.out.println("...Entschuldigen Sie, ich vergaß... war es der Beginn einer Rechnung(y) oder die Fortführung der Rechnung(n)?");
-            String question = eingabe.nextLine();
-            if(question.equals("y")) {
+            if(/*count == 0 ||*/ operanden.size() == 0 ) {
 
                 System.out.println("Bitte geben Sie die Operanden ein (Gleitkomma, getrennt durch ein Leerzeichen)!: ");
 
@@ -32,10 +31,12 @@ public class Main {
                         operanden.add(parseDouble(operand));
                 }
 
-            }else if(question.equals("n")) System.out.println("...dann geht es direkt hier weiter:");
+            }else if(operanden.size() == 2) System.out.println("...dann geht es hier weiter:");
+
+
             System.out.println("Nun bitte die Rechenoperation angeben: \n a-addieren, s-subtrahieren, m-multiplizieren, d-dividieren.E für escape.");
             String operation = eingabe.nextLine();
-
+            count = 1 - count;
             for (int u = 1; u < operanden.size(); u++) {
 
 
@@ -65,7 +66,7 @@ public class Main {
 
 
                 System.out.println("Möchten Sie mit dem Ergebnis der letzten Rechnung weiterrechnen? y/n");
-                String antwort = eingabe.nextLine();
+                antwort = eingabe.nextLine();
                 if (antwort.equals("y")) {
                     System.out.println("Bitte geben Sie den zweiten Operanden ein!");
                     double zweiterOperand = Double.parseDouble(eingabe.nextLine());
@@ -75,7 +76,7 @@ public class Main {
                     operanden.add(zweiterOperand);
 
                     }
-                }
+                }if(antwort.equals("n")) operanden.clear();
 
 
             }
